@@ -8,6 +8,7 @@ using Google.Apis.Drive.v3;
 using Apps.GoogleDrive.Models.Requests;
 using Apps.GoogleDrive.Models.Responses;
 using Apps.GoogleDrive.Dtos;
+using System;
 
 namespace Apps.GoogleDrive
 {
@@ -32,6 +33,27 @@ namespace Apps.GoogleDrive
             return new GetAllItemsResponse()
             {
                 FilesDetails = filesDetails
+            };
+        }
+
+        [Action("Get file", Description = "Get file by Id")]
+        public GetFileResponse GetFile(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+           [ActionParameter] GetFileRequest input)
+        {
+            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var file = client.Files.Get(input.FileId);
+
+            byte[] data;
+            using (var stream = new MemoryStream())
+            {
+                file.Download(stream);
+                data = stream.ToArray();
+            }
+            var fileMetadata = file.Execute();
+            return new GetFileResponse()
+            {
+                Name = fileMetadata.Name,
+                Data = data
             };
         }
 
