@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apps.GoogleDrive.Dtos
+namespace Apps.GoogleDrive.Models.Requests
 {
-    public class ItemsDetailsDto
+    public class UploadFileRequest
     {
-        public string Name { get; set; }
+        public string Filename { get; set; }
 
-        public string Type { get; set; }
+        public byte[] File { get; set; }
 
         public string ParentFolderId { get; set; }
     }

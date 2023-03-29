@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apps.GoogleDrive.Dtos
+namespace Apps.GoogleDrive.Models.Requests
 {
-    public class ItemsDetailsDto
+    public class CreateFolderRequest
     {
-        public string Name { get; set; }
-
-        public string Type { get; set; }
+        public string FolderName { get; set; }
 
         public string ParentFolderId { get; set; }
     }

@@ -57,6 +57,45 @@ namespace Apps.GoogleDrive
             };
         }
 
+        [Action("Upload file", Description = "Upload file")]
+        public void UploadFile(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+           [ActionParameter] UploadFileRequest input)
+        {
+            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var body = new Google.Apis.Drive.v3.Data.File();
+            body.Name = input.Filename;
+            body.Parents = new List<string>() { input.ParentFolderId };
+
+            using (var stream = new MemoryStream(input.File))
+            {
+                var request = client.Files.Create(body, stream, null);
+                request.Upload();
+            }
+        }
+
+        [Action("Delete item", Description = "Delete item(file/folder) by id")]
+        public void DeleteItem(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+           [ActionParameter] DeleteItemRequest input)
+        {
+            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            client.Files.Delete(input.ItemId).Execute();
+        }
+
+        [Action("Create folder", Description = "Create folder")]
+        public void CreateFolder(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+           [ActionParameter] CreateFolderRequest input)
+        {
+            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            {
+                Name = input.FolderName,
+                MimeType = "application/vnd.google-apps.folder",
+                Parents = new List<string>() { input.ParentFolderId }
+            };
+            var request = client.Files.Create(fileMetadata);
+            request.Execute();
+        }
+
         private DriveService GetGoogleDriveClient(string serviceAccountConfString)
         {
             string[] scopes = { DriveService.Scope.Drive };
@@ -69,6 +108,6 @@ namespace Apps.GoogleDrive
                 ApplicationName = "Blackbird"
             });
             return service;
-        }   
+        }
     }
 }
