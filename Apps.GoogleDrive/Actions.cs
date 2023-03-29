@@ -32,7 +32,7 @@ namespace Apps.GoogleDrive
             }
             return new GetAllItemsResponse()
             {
-                FilesDetails = filesDetails
+                ItemsDetails = filesDetails
             };
         }
 
