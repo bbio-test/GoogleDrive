@@ -16,7 +16,7 @@ namespace Apps.GoogleDrive
     public class Actions
     {
         [Action("Get all items details", Description = "Get all items(files/folders) details")]
-        public GetAllItemsResponse GetAllFilesDetails(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public GetAllItemsResponse GetAllItemsDetails(AuthenticationCredentialsProvider authenticationCredentialsProvider,
            [ActionParameter] GetAllItemsRequest input)
         {
             var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);

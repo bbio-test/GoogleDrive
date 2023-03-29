@@ -9,6 +9,6 @@ namespace Apps.GoogleDrive.Models.Responses
 {
     public class GetAllItemsResponse
     {
-        public IEnumerable<ItemsDetailsDto> FilesDetails { get; set; }
+        public IEnumerable<ItemsDetailsDto> ItemsDetails { get; set; }
     }
 }
