@@ -30,6 +30,7 @@ namespace Apps.GoogleDrive
                     Type = file.MimeType.Equals("application/vnd.google-apps.folder") ? "folder" : "file"
                 });
             }
+
             return new GetAllItemsResponse()
             {
                 ItemsDetails = filesDetails
