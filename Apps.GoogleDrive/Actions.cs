@@ -9,6 +9,7 @@ using Apps.GoogleDrive.Models.Requests;
 using Apps.GoogleDrive.Models.Responses;
 using Apps.GoogleDrive.Dtos;
 using System;
+using Blackbird.Applications.Sdk.Common.Actions;
 
 namespace Apps.GoogleDrive
 {
@@ -16,10 +17,10 @@ namespace Apps.GoogleDrive
     public class Actions
     {
         [Action("Get all items details", Description = "Get all items(files/folders) details")]
-        public GetAllItemsResponse GetAllItemsDetails(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public GetAllItemsResponse GetAllItemsDetails(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
            [ActionParameter] GetAllItemsRequest input)
         {
-            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var filesList = client.Files.List().Execute();
             var filesDetails = new List<ItemsDetailsDto>();
             foreach (var file in filesList.Files)
@@ -38,10 +39,10 @@ namespace Apps.GoogleDrive
         }
 
         [Action("Get file", Description = "Get file by Id")]
-        public GetFileResponse GetFile(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public GetFileResponse GetFile(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
            [ActionParameter] GetFileRequest input)
         {
-            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var file = client.Files.Get(input.FileId);
 
             byte[] data;
@@ -59,10 +60,10 @@ namespace Apps.GoogleDrive
         }
 
         [Action("Upload file", Description = "Upload file")]
-        public void UploadFile(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public void UploadFile(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
            [ActionParameter] UploadFileRequest input)
         {
-            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var body = new Google.Apis.Drive.v3.Data.File();
             body.Name = input.Filename;
             body.Parents = new List<string>() { input.ParentFolderId };
@@ -75,18 +76,18 @@ namespace Apps.GoogleDrive
         }
 
         [Action("Delete item", Description = "Delete item(file/folder) by id")]
-        public void DeleteItem(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public void DeleteItem(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
            [ActionParameter] DeleteItemRequest input)
         {
-            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             client.Files.Delete(input.ItemId).Execute();
         }
 
         [Action("Create folder", Description = "Create folder")]
-        public void CreateFolder(AuthenticationCredentialsProvider authenticationCredentialsProvider,
+        public void CreateFolder(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
            [ActionParameter] CreateFolderRequest input)
         {
-            var client = GetGoogleDriveClient(authenticationCredentialsProvider.Value);
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var fileMetadata = new Google.Apis.Drive.v3.Data.File()
             {
                 Name = input.FolderName,
@@ -95,20 +96,6 @@ namespace Apps.GoogleDrive
             };
             var request = client.Files.Create(fileMetadata);
             request.Execute();
-        }
-
-        private DriveService GetGoogleDriveClient(string serviceAccountConfString)
-        {
-            string[] scopes = { DriveService.Scope.Drive };
-            ServiceAccountCredential? credential = GoogleCredential.FromJson(serviceAccountConfString)
-                                                  .CreateScoped(scopes)
-                                                  .UnderlyingCredential as ServiceAccountCredential;
-            var service = new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "Blackbird"
-            });
-            return service;
         }
     }
 }
