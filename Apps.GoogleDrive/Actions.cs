@@ -107,7 +107,7 @@ namespace Apps.GoogleDrive
             var requestChanges = client.Changes.List(token);
             requestChanges.Spaces = "drive";
             requestChanges.Fields = "*";
-            var changes = requestChanges.Execute().Changes.Where(ch => ch.File.Parents.Contains(folderId)).ToList();
+            var changes = requestChanges.Execute().Changes.Where(ch => ch.File.Parents != null && ch.File.Parents.Contains(folderId)).ToList();
             var lastChange = changes.OrderBy(x => x.File.CreatedTime).ToList().Last();
             return new GetChangesByTokenResponse()
             {
