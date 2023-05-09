@@ -21,6 +21,16 @@ namespace Apps.GoogleDrive.Connections
                 {
                     new ConnectionProperty("serviceAccountConfString")
                 }
+            },
+            new ConnectionPropertyGroup
+            {
+                Name = "Webhook data",
+                AuthenticationType = ConnectionAuthenticationType.Undefined,
+                ConnectionUsage = ConnectionUsage.Webhooks,
+                ConnectionProperties = new List<ConnectionProperty>()
+                {
+                    new ConnectionProperty("resourceIdForWebhook")
+                }
             }
         };
 

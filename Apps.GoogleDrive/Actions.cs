@@ -97,5 +97,22 @@ namespace Apps.GoogleDrive
             var request = client.Files.Create(fileMetadata);
             request.Execute();
         }
+
+        [Action("Get folder changes by token", Description = "Get folder changes by state token")]
+        public GetChangesByTokenResponse GetChangesByToken(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
+           [ActionParameter] string token, [ActionParameter] string folderId)
+        {
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
+
+            var requestChanges = client.Changes.List(token);
+            requestChanges.Spaces = "drive";
+            requestChanges.Fields = "*";
+            var changes = requestChanges.Execute().Changes.Where(ch => ch.File.Parents.Contains(folderId)).ToList();
+            var lastChange = changes.OrderBy(x => x.File.CreatedTime).ToList().Last();
+            return new GetChangesByTokenResponse()
+            {
+                ResourceId = lastChange.File.Id
+            };
+        }
     }
 }
