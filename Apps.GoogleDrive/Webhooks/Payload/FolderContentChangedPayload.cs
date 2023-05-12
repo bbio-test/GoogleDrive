@@ -10,7 +10,7 @@ namespace Apps.GoogleDrive.Webhooks.Payload
     {
         public string StateToken { get; set; }
 
-        public string ResourceState { get; set; }
+        public string ResourceState { get; set; } //update, trash
 
         public string ResourceId { get; set; }
 
