@@ -1,6 +1,7 @@
 ﻿using Apps.GoogleDrive.Webhooks.Handlers;
 using Apps.GoogleDrive.Webhooks.Payload;
 using Blackbird.Applications.Sdk.Common.Webhooks;
+using Blackbird.Plugins.Plunet;
 using Google.Apis.Drive.v3.Data;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
@@ -18,18 +19,19 @@ namespace Apps.GoogleDrive.Webhooks
             string resourceState = "";
             string resourceId = "";
             string channelId = "";
-            webhookRequest.Headers.TryGetValue("X-Goog-Channel-Token", out stateToken);
-            webhookRequest.Headers.TryGetValue("X-Goog-Resource-State", out resourceState);
-            webhookRequest.Headers.TryGetValue("X-Goog-Channel-ID", out channelId);
-            webhookRequest.Headers.TryGetValue("X-Goog-Resource-ID", out resourceId);
-            if(resourceState != "update")
+            webhookRequest.Headers.TryGetValue("x-goog-channel-token", out stateToken);
+            webhookRequest.Headers.TryGetValue("x-goog-resource-state", out resourceState);
+            webhookRequest.Headers.TryGetValue("x-goog-channel-id", out channelId);
+            webhookRequest.Headers.TryGetValue("x-goog-resource-id", out resourceId);
+            if (resourceState != "update")
             {
                 return new WebhookResponse<FolderContentChangedPayload>
                 {
-                    HttpResponseMessage = new HttpResponseMessage() { StatusCode = HttpStatusCode.OK},
+                    HttpResponseMessage = new HttpResponseMessage() { StatusCode = HttpStatusCode.OK },
                     Result = null
                 };
             }
+
             return new WebhookResponse<FolderContentChangedPayload>
             {
                 HttpResponseMessage = null,
@@ -50,10 +52,10 @@ namespace Apps.GoogleDrive.Webhooks
             string resourceState = "";
             string resourceId = "";
             string channelId = "";
-            webhookRequest.Headers.TryGetValue("X-Goog-Channel-Token", out stateToken);
-            webhookRequest.Headers.TryGetValue("X-Goog-Resource-State", out resourceState);
-            webhookRequest.Headers.TryGetValue("X-Goog-Channel-ID", out channelId);
-            webhookRequest.Headers.TryGetValue("X-Goog-Resource-ID", out resourceId);
+            webhookRequest.Headers.TryGetValue("x-goog-channel-token", out stateToken);
+            webhookRequest.Headers.TryGetValue("x-goog-resource-state", out resourceState);
+            webhookRequest.Headers.TryGetValue("x-goog-channel-id", out channelId);
+            webhookRequest.Headers.TryGetValue("x-goog-resource-id", out resourceId);
             if (resourceState != "trash")
             {
                 return new WebhookResponse<FolderContentChangedPayload>

@@ -28,7 +28,7 @@ namespace Apps.GoogleDrive.Webhooks.Handlers
 
         public async Task UnsubscribeAsync(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProvider, Dictionary<string, string> values)
         {
-           
+            await Task.CompletedTask;
         }
     }
 }
