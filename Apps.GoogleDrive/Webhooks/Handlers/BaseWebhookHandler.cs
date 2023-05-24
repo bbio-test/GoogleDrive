@@ -6,10 +6,6 @@ namespace Apps.GoogleDrive.Webhooks.Handlers
 {
     public class BaseWebhookHandler : IWebhookEventHandler
     {
-        public BaseWebhookHandler()
-        {
-        }
-
         public async Task SubscribeAsync(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProvider, Dictionary<string, string> values)
         {
             var client = new GoogleDriveClient(authenticationCredentialsProvider);
@@ -23,7 +19,7 @@ namespace Apps.GoogleDrive.Webhooks.Handlers
                 Token = stateToken.StartPageTokenValue,
                 Payload = true
             }, values["resourceIdForWebhook"]);
-            request.Execute();
+            await request.ExecuteAsync();
         }
 
         public async Task UnsubscribeAsync(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProvider, Dictionary<string, string> values)
