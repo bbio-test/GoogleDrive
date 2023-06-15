@@ -14,14 +14,23 @@ namespace Apps.GoogleDrive.Connections
         {
             new ConnectionPropertyGroup
             {
-                Name = "Service account",
-                AuthenticationType = ConnectionAuthenticationType.Undefined,
+                Name = "OAuth",
+                AuthenticationType = ConnectionAuthenticationType.OAuth2,
                 ConnectionUsage = ConnectionUsage.Actions,
                 ConnectionProperties = new List<ConnectionProperty>()
                 {
-                    new ConnectionProperty("serviceAccountConfString")
                 }
             },
+            //new ConnectionPropertyGroup
+            //{
+            //    Name = "Service account",
+            //    AuthenticationType = ConnectionAuthenticationType.Undefined,
+            //    ConnectionUsage = ConnectionUsage.Actions,
+            //    ConnectionProperties = new List<ConnectionProperty>()
+            //    {
+            //        new ConnectionProperty("serviceAccountConfString")
+            //    }
+            //},
             new ConnectionPropertyGroup
             {
                 Name = "Webhook data",
@@ -36,12 +45,18 @@ namespace Apps.GoogleDrive.Connections
 
         public IEnumerable<AuthenticationCredentialsProvider> CreateAuthorizationCredentialsProviders(Dictionary<string, string> values)
         {
-            var serviceAccountConfString = values.First(v => v.Key == "serviceAccountConfString");
+            var accessToken = values.First(v => v.Key == "access_token");
             yield return new AuthenticationCredentialsProvider(
                 AuthenticationCredentialsRequestLocation.None,
-                serviceAccountConfString.Key,
-                serviceAccountConfString.Value
+                "Authorization",
+                accessToken.Value
             );
+            //var serviceAccountConfString = values.First(v => v.Key == "serviceAccountConfString");
+            //yield return new AuthenticationCredentialsProvider(
+            //    AuthenticationCredentialsRequestLocation.None,
+            //    serviceAccountConfString.Key,
+            //    serviceAccountConfString.Value
+            //);
         }
     }
 }
