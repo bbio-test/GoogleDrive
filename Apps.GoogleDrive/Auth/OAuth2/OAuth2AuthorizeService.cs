@@ -12,9 +12,10 @@ namespace Apps.GoogleDrive.Authorization.OAuth2
             {
                 { "client_id", ApplicationConstants.ClientId },
                 { "redirect_uri", ApplicationConstants.RedirectUri },
-                { "response_type", "token" },
+                { "response_type", "code" },
                 { "scope", ApplicationConstants.Scope },
-                { "state", values["state"] }
+                { "state", values["state"] },
+                { "access_type", "offline" }
             };
             return QueryHelpers.AddQueryString(oauthUrl, parameters);
         }

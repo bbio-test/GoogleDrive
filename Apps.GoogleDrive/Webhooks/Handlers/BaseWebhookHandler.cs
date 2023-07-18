@@ -17,7 +17,7 @@ namespace Apps.GoogleDrive.Webhooks.Handlers
                 Type = "web_hook",
                 Address = values["payloadUrl"],
                 Token = stateToken.StartPageTokenValue,
-                Payload = true
+                Payload = true,
             }, values["resourceIdForWebhook"]);
             await request.ExecuteAsync();
         }

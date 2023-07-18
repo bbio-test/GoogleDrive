@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Apps.GoogleDrive.Models.Requests
+namespace Apps.GoogleDrive.Webhooks
 {
-    public class GetFileRequest
+    public class WebhookInput
     {
-        [Display("File ID")]
-        public string FileId { get; set; }
+        [Display("Resource ID")]
+        public string ResourceId { get; set; }
     }
 }

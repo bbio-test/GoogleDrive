@@ -38,7 +38,7 @@ namespace Apps.GoogleDrive.Connections
                 ConnectionUsage = ConnectionUsage.Webhooks,
                 ConnectionProperties = new List<ConnectionProperty>()
                 {
-                    new ConnectionProperty("resourceIdForWebhook")
+                    // new ConnectionProperty("Resource ID")
                 }
             }
         };
