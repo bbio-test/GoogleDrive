@@ -1,11 +1,7 @@
-﻿using Blackbird.Applications.Sdk.Common.Authentication;
+﻿using Apps.GoogleDrive.Clients;
+using Blackbird.Applications.Sdk.Common.Authentication;
 using Blackbird.Applications.Sdk.Common.Webhooks;
 using Google.Apis.Drive.v3.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Apps.GoogleDrive.Webhooks.Handlers
 {

@@ -2,13 +2,8 @@
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Apps.GoogleDrive
+namespace Apps.GoogleDrive.Clients
 {
     public class GoogleDriveClient : DriveService
     {
@@ -21,11 +16,13 @@ namespace Apps.GoogleDrive
             //                                      .UnderlyingCredential as ServiceAccountCredential;
             var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "Authorization").Value;
             GoogleCredential credentials = GoogleCredential.FromAccessToken(accessToken);
+
             return new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credentials,
                 ApplicationName = "Blackbird"
             };
+            
         }
 
         public GoogleDriveClient(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders) : base (GetInitializer(authenticationCredentialsProviders)) { }

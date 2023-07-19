@@ -1,12 +1,6 @@
-﻿using Apps.GoogleDrive.Authorization.OAuth2;
+﻿using Apps.GoogleDrive.Auth.OAuth2;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Authentication.OAuth2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Apps.GoogleDrive
 {

@@ -1,4 +1,4 @@
-namespace Apps.GoogleDrive.Webhooks.Handlers
+namespace Apps.GoogleDrive.Webhooks.Handlers.UserHandlers
 {
     public class FolderContentAddedHandler : BaseWebhookHandler
     {

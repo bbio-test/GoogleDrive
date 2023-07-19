@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Apps.GoogleDrive.Webhooks.Payload
+﻿namespace Apps.GoogleDrive.Webhooks.Payload
 {
     public class FolderContentChangedPayload
     {
