@@ -17,6 +17,7 @@ namespace Apps.GoogleDrive.Auth.OAuth2
                 { "state", values["state"] },
                 { "access_type", "offline" }
             };
+            
             return QueryHelpers.AddQueryString(oauthUrl, parameters);
         }
     }

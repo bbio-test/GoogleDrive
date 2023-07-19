@@ -141,36 +141,6 @@ namespace Apps.GoogleDrive.Actions
             request.Execute();
         }
 
-        [Action("Get folder change by token", Description = "Get last folder change by state token")]
-        public GetChangesByTokenResponse GetChangesByToken(
-            IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
-            [ActionParameter] string stateToken, [ActionParameter] string folderId,
-            [ActionParameter] string resourceState)
-        {
-            var client = new GoogleDriveClient(authenticationCredentialsProviders);
-            var lastChange = new Change();
-
-            var requestChanges = client.Changes.List(stateToken);
-            requestChanges.Spaces = "drive";
-            requestChanges.Fields = "*";
-            if (resourceState == "update")
-            {
-                var changes = requestChanges.Execute().Changes
-                    .Where(ch => ch.File.Parents != null && ch.File.Parents.Contains(folderId)).ToList();
-                lastChange = changes.OrderBy(x => x.File.CreatedTime).ToList().Last();
-            }
-            else if (resourceState == "trash")
-            {
-                var changes = requestChanges.Execute().Changes.Where(ch => ch.File.Trashed ?? false).ToList();
-                lastChange = changes.OrderBy(x => x.File.TrashedTime).ToList().Last();
-            }
-
-            return new GetChangesByTokenResponse()
-            {
-                ResourceId = lastChange.File.Id
-            };
-        }
-
         #endregion
     }
 }
