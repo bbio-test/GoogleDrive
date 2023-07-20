@@ -3,9 +3,9 @@ using Blackbird.Applications.Sdk.Common;
 
 namespace Apps.GoogleDrive.Models.Responses
 {
-    public class GetAllItemsResponse
+    public class GetChangedItemsResponse
     {
-        [Display("Items details")]
+        [Display("Changed files")]
         public IEnumerable<ItemsDetailsDto> ItemsDetails { get; set; }
     }
 }
