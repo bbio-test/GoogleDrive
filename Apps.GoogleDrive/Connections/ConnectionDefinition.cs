@@ -5,14 +5,14 @@ namespace Apps.GoogleDrive.Connections
 {
     public class ConnectionDefinition : IConnectionDefinition
     {
-        public IEnumerable<ConnectionPropertyGroup> ConnectionPropertyGroups => new List<ConnectionPropertyGroup>()
+        public IEnumerable<ConnectionPropertyGroup> ConnectionPropertyGroups => new List<ConnectionPropertyGroup>
         {
             new ConnectionPropertyGroup
             {
                 Name = "OAuth",
                 AuthenticationType = ConnectionAuthenticationType.OAuth2,
                 ConnectionUsage = ConnectionUsage.Actions,
-                ConnectionProperties = new List<ConnectionProperty>()
+                ConnectionProperties = new List<ConnectionProperty>
                 {
                 }
             },
@@ -31,7 +31,7 @@ namespace Apps.GoogleDrive.Connections
                 Name = "Webhook data",
                 AuthenticationType = ConnectionAuthenticationType.Undefined,
                 ConnectionUsage = ConnectionUsage.Webhooks,
-                ConnectionProperties = new List<ConnectionProperty>()
+                ConnectionProperties = new List<ConnectionProperty>
                 {
                     // new ConnectionProperty("Resource ID")
                 }

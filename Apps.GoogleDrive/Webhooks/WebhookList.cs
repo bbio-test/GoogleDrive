@@ -1,7 +1,4 @@
-﻿using Apps.GoogleDrive.Webhooks.Payload;
-using Blackbird.Applications.Sdk.Common.Webhooks;
-using System.Net;
-using Apps.GoogleDrive.Webhooks.Handlers.UserHandlers;
+﻿using Blackbird.Applications.Sdk.Common.Webhooks;
 
 namespace Apps.GoogleDrive.Webhooks
 {

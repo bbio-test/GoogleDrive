@@ -12,7 +12,7 @@ namespace Apps.GoogleDrive.Webhooks.Handlers
             var client = new GoogleDriveClient(authenticationCredentialsProvider);
             var stateToken = client.Changes.GetStartPageToken().Execute();
             var channnelId = Guid.NewGuid().ToString();
-            var request = client.Files.Watch(new Channel()
+            var request = client.Files.Watch(new Channel
             {
                 Id = channnelId,
                 Type = "web_hook",

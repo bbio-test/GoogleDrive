@@ -6,7 +6,6 @@ using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Google.Apis.Download;
-using Google.Apis.Drive.v3.Data;
 using Google.Apis.DriveActivity.v2.Data;
 
 namespace Apps.GoogleDrive.Actions
@@ -16,37 +15,34 @@ namespace Apps.GoogleDrive.Actions
     {
         #region File actions
 
-        //[Action("Get all items details", Description = "Get all items(files/folders) details")]
-        //public GetAllItemsResponse GetAllItemsDetails(
-        //    IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders)
-        //{
-        //    var client = new GoogleDriveClient(authenticationCredentialsProviders);
-        //    var filesListr = client.Files.List();
-        //    filesListr.SupportsAllDrives = true;
-        //    var filesList = filesListr.Execute();
-        //    var filesDetails = new List<ItemsDetailsDto>();
-        //    foreach (var file in filesList.Files)
-        //    {
-        //        filesDetails.Add(new ItemsDetailsDto()
-        //        {
-        //            Id = file.Id,
-        //            Name = file.Name,
-        //            Type = file.MimeType.Equals("application/vnd.google-apps.folder") ? "folder" : "file"
-        //        });
-        //    }
+        [Action("Get all items details", Description = "Get all items(files/folders) details")]
+        public GetAllItemsResponse GetAllItemsDetails(
+            IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders)
+        {
+            var client = new GoogleDriveClient(authenticationCredentialsProviders);
+            var filesListr = client.Files.List();
+            filesListr.SupportsAllDrives = true;
+            var filesList = filesListr.Execute();
+            
+            var filesDetails = new List<ItemsDetailsDto>();
+            foreach (var file in filesList.Files)
+            {
+                filesDetails.Add(new ItemsDetailsDto
+                {
+                    Id = file.Id,
+                    Name = file.Name,
+                    MimeType = file.MimeType
+                });
+            }
 
-        //    return new GetAllItemsResponse()
-        //    {
-        //        ItemsDetails = filesDetails
-        //    };
-        //}
+            return new GetAllItemsResponse(filesDetails);
+        }
 
         [Action("Get changed files", Description = "Get all files that have been created or modified in the last time period")]
         public async Task<GetChangedItemsResponse> GetChangedFiles(
             IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
             [ActionParameter] GetChangedFilesRequest input)
         {
-            var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var activityClient = new GoogleDriveActivityClient(authenticationCredentialsProviders);
             var driveItems = new List<DriveItem>();
             var deletedItemIds = new List<string>();
@@ -87,7 +83,7 @@ namespace Apps.GoogleDrive.Actions
 
             var allChangedItems = driveItems.Where(x => !deletedItemIds.Contains(x.Name)).DistinctBy(x => x.Name);
 
-            return new GetChangedItemsResponse()
+            return new GetChangedItemsResponse
             {
                 ItemsDetails = allChangedItems.Select(x => new ItemsDetailsDto 
                 { 
@@ -133,7 +129,7 @@ namespace Apps.GoogleDrive.Actions
                         throw new Exception($"The file {fileMetadata.Name} has type {fileMetadata.MimeType}, which has no defined conversion");
                     var exportRequest = client.Files.Export(input.FileId, _mimeMap[fileMetadata.MimeType]);
                     exportRequest.DownloadWithStatus(stream).ThrowOnFailure();
-                    fileName = fileName + _extensionMap[fileMetadata.MimeType];
+                    fileName += _extensionMap[fileMetadata.MimeType];
                 }
                 else                    
                     request.DownloadWithStatus(stream).ThrowOnFailure();
@@ -141,7 +137,7 @@ namespace Apps.GoogleDrive.Actions
                 data = stream.ToArray();
             }
 
-            return new GetFileResponse()
+            return new GetFileResponse
             {
                 Name = fileName,
                 Data = data
@@ -155,7 +151,7 @@ namespace Apps.GoogleDrive.Actions
             var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var body = new Google.Apis.Drive.v3.Data.File();
             body.Name = input.Name;
-            body.Parents = new List<string>() { input.ParentFolderId };
+            body.Parents = new List<string> { input.ParentFolderId };
 
             using (var stream = new MemoryStream(input.File))
             {
@@ -181,11 +177,11 @@ namespace Apps.GoogleDrive.Actions
             [ActionParameter] CreateFolderRequest input)
         {
             var client = new GoogleDriveClient(authenticationCredentialsProviders);
-            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            var fileMetadata = new Google.Apis.Drive.v3.Data.File
             {
                 Name = input.FolderName,
                 MimeType = "application/vnd.google-apps.folder",
-                Parents = new List<string>() { input.ParentFolderId }
+                Parents = new List<string> { input.ParentFolderId }
             };
             var request = client.Files.Create(fileMetadata);
             request.Execute();

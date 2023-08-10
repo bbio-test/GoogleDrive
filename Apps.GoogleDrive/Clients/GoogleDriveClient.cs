@@ -17,7 +17,7 @@ namespace Apps.GoogleDrive.Clients
             var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "Authorization").Value;
             GoogleCredential credentials = GoogleCredential.FromAccessToken(accessToken);
 
-            return new BaseClientService.Initializer()
+            return new BaseClientService.Initializer
             {
                 HttpClientInitializer = credentials,
                 ApplicationName = "Blackbird"
