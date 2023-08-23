@@ -7,6 +7,8 @@ using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Google.Apis.Download;
 using Google.Apis.DriveActivity.v2.Data;
+using System.Net.Mime;
+using File = Blackbird.Applications.Sdk.Common.Files.File;
 
 namespace Apps.GoogleDrive.Actions
 {
@@ -111,7 +113,7 @@ namespace Apps.GoogleDrive.Actions
         };
 
         [Action("Download file", Description = "Download a file")]
-        public GetFileResponse GetFile(
+        public File GetFile(
             IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders,
             [ActionParameter] GetFileRequest input)
         {
@@ -136,11 +138,10 @@ namespace Apps.GoogleDrive.Actions
 
                 data = stream.ToArray();
             }
-
-            return new GetFileResponse
+            return new File(data)
             {
                 Name = fileName,
-                Data = data
+                ContentType = MediaTypeNames.Application.Octet
             };
         }
 
