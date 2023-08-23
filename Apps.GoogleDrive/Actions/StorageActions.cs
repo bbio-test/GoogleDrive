@@ -151,10 +151,10 @@ namespace Apps.GoogleDrive.Actions
         {
             var client = new GoogleDriveClient(authenticationCredentialsProviders);
             var body = new Google.Apis.Drive.v3.Data.File();
-            body.Name = input.Name;
+            body.Name = input.File.Name;
             body.Parents = new List<string> { input.ParentFolderId };
 
-            using (var stream = new MemoryStream(input.File))
+            using (var stream = new MemoryStream(input.File.Bytes))
             {
                 var request = client.Files.Create(body, stream, null);
                 request.Upload();
