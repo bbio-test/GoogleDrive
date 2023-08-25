@@ -8,7 +8,7 @@ public class GoogleDriveActivityClient : DriveActivityService
 {
     private static Initializer GetInitializer(IEnumerable<AuthenticationCredentialsProvider> authenticationCredentialsProviders)
     {
-        var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "Authorization").Value;
+        var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "access_token").Value;
         var credentials = GoogleCredential.FromAccessToken(accessToken);
 
         return new()

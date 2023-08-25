@@ -14,7 +14,7 @@ namespace Apps.GoogleDrive.Clients
             //ServiceAccountCredential? credential = GoogleCredential.FromJson(serviceAccountConfString)
             //                                      .CreateScoped(scopes)
             //                                      .UnderlyingCredential as ServiceAccountCredential;
-            var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "Authorization").Value;
+            var accessToken = authenticationCredentialsProviders.First(p => p.KeyName == "access_token").Value;
             GoogleCredential credentials = GoogleCredential.FromAccessToken(accessToken);
 
             return new BaseClientService.Initializer
