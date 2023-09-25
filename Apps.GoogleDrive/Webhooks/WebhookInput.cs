@@ -1,10 +1,12 @@
-﻿using Blackbird.Applications.Sdk.Common;
+﻿using Apps.GoogleDrive.DataSourceHandler;
+using Blackbird.Applications.Sdk.Common;
+using Blackbird.Applications.Sdk.Common.Dynamic;
 
-namespace Apps.GoogleDrive.Webhooks
+namespace Apps.GoogleDrive.Webhooks;
+
+public class WebhookInput
 {
-    public class WebhookInput
-    {
-        [Display("Resource ID")]
-        public string ResourceId { get; set; }
-    }
+    [Display("Resource ID")]
+    [DataSource(typeof(FolderDataHandler))]
+    public string ResourceId { get; set; }
 }

@@ -1,9 +1,8 @@
-﻿namespace Apps.GoogleDrive.Dtos
-{
-    public class ChangeDto
-    {
-        public string ResourceId { get; set; }
+﻿namespace Apps.GoogleDrive.Dtos;
 
-        public IEnumerable<string> ParentFolders { get; set; }
-    }
+public class ChangeDto
+{
+    public string ResourceId { get; set; }
+
+    public IEnumerable<string> ParentFolders { get; set; }
 }

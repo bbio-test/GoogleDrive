@@ -1,6 +1,5 @@
-﻿namespace Apps.GoogleDrive.Models.Requests
+﻿namespace Apps.GoogleDrive.Models.Requests;
+
+public class GetAllItemsRequest
 {
-    public class GetAllItemsRequest
-    {
-    }
 }

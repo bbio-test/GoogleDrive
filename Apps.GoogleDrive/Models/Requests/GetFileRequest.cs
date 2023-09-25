@@ -2,12 +2,11 @@
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 
-namespace Apps.GoogleDrive.Models.Requests
+namespace Apps.GoogleDrive.Models.Requests;
+
+public class GetFileRequest
 {
-    public class GetFileRequest
-    {
-        [Display("File")]
-        [DataSource(typeof(FileDataHandler))]
-        public string FileId { get; set; }
-    }
+    [Display("File")]
+    [DataSource(typeof(FileDataHandler))]
+    public string FileId { get; set; }
 }

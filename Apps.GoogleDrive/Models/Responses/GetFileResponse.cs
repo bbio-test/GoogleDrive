@@ -1,9 +1,8 @@
-﻿namespace Apps.GoogleDrive.Models.Responses
-{
-    public class GetFileResponse
-    {
-        public string Name { get; set; }
+﻿namespace Apps.GoogleDrive.Models.Responses;
 
-        public byte[] Data { get; set; }
-    }
+public class GetFileResponse
+{
+    public string Name { get; set; }
+
+    public byte[] Data { get; set; }
 }

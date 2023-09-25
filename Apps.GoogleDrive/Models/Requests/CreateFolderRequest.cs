@@ -2,15 +2,14 @@
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 
-namespace Apps.GoogleDrive.Models.Requests
-{
-    public class CreateFolderRequest
-    {
-        [Display("Folder name")]
-        public string FolderName { get; set; }
+namespace Apps.GoogleDrive.Models.Requests;
 
-        [Display("Parent folder")]
-        [DataSource(typeof(FolderDataHandler))]
-        public string ParentFolderId { get; set; }
-    }
+public class CreateFolderRequest
+{
+    [Display("Folder name")]
+    public string FolderName { get; set; }
+
+    [Display("Parent folder")]
+    [DataSource(typeof(FolderDataHandler))]
+    public string ParentFolderId { get; set; }
 }

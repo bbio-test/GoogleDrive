@@ -1,7 +1,6 @@
-﻿namespace Apps.GoogleDrive.Models.Responses
+﻿namespace Apps.GoogleDrive.Models.Responses;
+
+public class GetChangesByTokenResponse
 {
-    public class GetChangesByTokenResponse
-    {
-        public string ResourceId { get; set; }
-    }
+    public string ResourceId { get; set; }
 }

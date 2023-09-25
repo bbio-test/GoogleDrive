@@ -1,13 +1,12 @@
-﻿namespace Apps.GoogleDrive.Webhooks.Payload
+﻿namespace Apps.GoogleDrive.Webhooks.Payload;
+
+public class FolderContentChangedPayload
 {
-    public class FolderContentChangedPayload
-    {
-        public string StateToken { get; set; }
+    public string StateToken { get; set; }
 
-        public string ResourceState { get; set; } //update, trash
+    public string ResourceState { get; set; } //update, trash
 
-        public string ResourceId { get; set; }
+    public string ResourceId { get; set; }
 
-        public string ChannelId { get; set; }
-    }
+    public string ChannelId { get; set; }
 }
