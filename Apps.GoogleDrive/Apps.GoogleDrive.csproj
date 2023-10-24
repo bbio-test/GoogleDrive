@@ -4,8 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Product>Blackbird Google Drive</Product>
-	<Version>1.0.0</Version>
+	  <Product>Blackbird Google Drive</Product>
+    <Description>Blackbird Google Drive</Description>
+	  <AssemblyVersion>1.0.0</AssemblyVersion>
+    <AssemblyName>Blackbird.GoogleDrive</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
