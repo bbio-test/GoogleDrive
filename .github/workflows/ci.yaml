@@ -16,4 +16,4 @@ jobs:
           repo: ${{ vars.GH_BUILD_REPOSITORY }}
           token: ${{ secrets.GH_PAT_TOKEN }}
           ref: main
-          inputs: '{"repository_url": "${{ github.repository }}","branch":"${{ github.ref }}", "pullrequest_id":"{{ github.event.pull_request.number }}"}'
+          inputs: '{"repository_url": "${{ github.repository }}","branch":"${{ github.ref }}", "pullrequest_id":"${{ github.event.pull_request.number }}"}'
